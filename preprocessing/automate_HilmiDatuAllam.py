@@ -106,12 +106,17 @@ def preprocess_data(data_path, target_column, output_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, required=True)
-    parser.add_argument('--output-dir', type=str, default='preprocessing/diabetes_prediction_dataset_preprocessing')
+    parser.add_argument('--input', type=str, required=True,
+    help = 'Path ke file csv')
+    parser.add_argument('--target', type=str, required=True,
+    help = 'Nama kolom target default : diabetes')
+    
+    parser.add_argument('--output-dir', type=str, default='preprocessing/diabetes_prediction_dataset_preprocessing',
+    help = 'Path output file')
     args = parser.parse_args()
 
     preprocess_data(
     data_path=args.input,
-    target_column='diabetes',
+    target_column=args.input,
     output_dir=args.output_dir
 )

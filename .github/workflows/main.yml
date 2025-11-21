@@ -31,7 +31,7 @@ jobs:
         run: |
           python preprocessing/automate_HilmiDatuAllam.py \
             --input diabetes_prediction_dataset_raw.csv \
-            --
+            --target diabetes \
             --output-dir preprocessing/diabetes_prediction_dataset_preprocessing
 
       - name: Tampilkan isi folder hasil
@@ -57,5 +57,5 @@ jobs:
             git push origin main
             echo "Berhasil push ke repo!"
           )
-        env:
+            env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
