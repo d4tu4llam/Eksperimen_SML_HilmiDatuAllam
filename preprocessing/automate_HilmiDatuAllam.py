@@ -114,4 +114,4 @@ if __name__ == "__main__":
     parser.add_argument('--output-dir', type=str, default='preprocessing/diabetes_prediction_dataset_preprocessing')
     args = parser.parse_args()
 
-    preprocess_and_split(args.input, args.output_dir)
+    preprocess_data(args.input, args.output_dir)
