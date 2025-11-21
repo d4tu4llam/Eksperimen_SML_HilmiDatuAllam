@@ -5,9 +5,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split
 import pandas as pd
+import argparse
 
-def preprocess_data(data, target_column, save_path, file_path):
+def preprocess_data(data_path, target_column, save_path, output_dir):
     # Menentukan fitur numerik dan kategoris
+    data = pd.read_csv(data_path,sep=",")
     numeric_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
     categorical_features = ['gender', 'hypertension', 'heart_disease']
     column_names = data.columns
@@ -104,12 +106,12 @@ def preprocess_data(data, target_column, save_path, file_path):
     print(f"   ├── test_processed.csv   ({test_df.shape})")
     print(f"   └── preprocessor.joblib")
 
-    return train_df, test_df
+    return X_train, X_test, y_train, y_test
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', type=str, required=True)
-    parser.add_argument('--output-dir', type=str, default='namadataset_preprocessing')
+    parser.add_argument('--output-dir', type=str, default='preprocessing/diabetes_prediction_dataset_preprocessing')
     args = parser.parse_args()
 
     preprocess_and_split(args.input, args.output_dir)
