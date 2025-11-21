@@ -116,6 +116,6 @@ if __name__ == "__main__":
 
     preprocess_data(
     data_path=args.input,
-    target_column=args.input,
+    target_column=args.target,
     output_dir=args.output_dir
 )
