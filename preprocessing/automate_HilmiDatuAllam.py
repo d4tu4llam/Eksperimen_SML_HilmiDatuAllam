@@ -15,9 +15,7 @@ def preprocess_data(data_path, target_column, output_dir):
     print("Data berhasil di load")
     numeric_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
     categorical_features = ['gender', 'hypertension', 'heart_disease']
-    column_names = data.columns
-    # Mendapatkan nama kolom tanpa kolom target
-    column_names = data.columns.drop(target_column)
+    
 
     # Pastikan target_column tidak ada di numeric_features atau categorical_features
     if target_column in numeric_features:
