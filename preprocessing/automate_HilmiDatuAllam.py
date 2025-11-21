@@ -84,13 +84,10 @@ def preprocess_data(data_path, target_column, output_dir):
     ])
 
     # Column Transformer
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ( numeric_transformer, numeric_features),
-            ( categorical_transformer, categorical_features)
-        ],
-        remainder='passthrough'
-    )
+    preprocessor = ColumnTransformer([
+        (numeric_transformer, numeric_features),
+        (categorical_transformer, categorical_features)
+    ], remainder='passthrough')
 
     # 7. Split data train & test
     X = df.drop(columns=[target_column])
