@@ -12,6 +12,7 @@ import os
 def preprocess_data(data_path, target_column, output_dir):
     # Menentukan fitur numerik dan kategoris
     data = pd.read_csv(data_path,sep=",")
+    print("Data berhasil di load")
     numeric_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
     categorical_features = ['gender', 'hypertension', 'heart_disease']
     column_names = data.columns
