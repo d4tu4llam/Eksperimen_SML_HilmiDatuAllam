@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import argparse
 
-def preprocess_data(data_path, target_column, save_path, output_dir):
+def preprocess_data(data_path, target_column, output_dir):
     # Menentukan fitur numerik dan kategoris
     data = pd.read_csv(data_path,sep=",")
     numeric_features = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
@@ -57,7 +57,7 @@ def preprocess_data(data_path, target_column, save_path, output_dir):
     # Pipeline untuk fitur kategoris
     categorical_transformer = Pipeline(steps=[
         ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-        ('encoder', OneHotEncoder(handle_unknown='ignore', sparse_output= False, drop='first'))
+        ('encoder', OneHotEncoder(handle_unknown='ignore', sparse_output=False, drop='first'))
     ])
 
     # Column Transformer
@@ -94,17 +94,11 @@ def preprocess_data(data_path, target_column, save_path, output_dir):
     # Simpan
     train_path = os.path.join(output_dir, "train_processed.csv")
     test_path = os.path.join(output_dir, "test_processed.csv")
-    prep_path = os.path.join(output_dir, preprocessor_path)
+    prep_path = os.path.join(output_dir, "preprocessor.joblib")
 
     train_df.to_csv(train_path, index=False)
     test_df.to_csv(test_path, index=False)
     dump(preprocessor, prep_path)
-
-    print(f"\n[SUKSES] Preprocessing selesai!")
-    print(f"   Folder: {output_dir}/")
-    print(f"   ├── train_processed.csv  ({train_df.shape})")
-    print(f"   ├── test_processed.csv   ({test_df.shape})")
-    print(f"   └── preprocessor.joblib")
 
     return X_train, X_test, y_train, y_test
 
@@ -114,4 +108,8 @@ if __name__ == "__main__":
     parser.add_argument('--output-dir', type=str, default='preprocessing/diabetes_prediction_dataset_preprocessing')
     args = parser.parse_args()
 
-    preprocess_data(args.input, args.output_dir)
+    preprocess_data(
+    data_path=args.input,
+    target_column='diabetes',
+    output_dir=args.output_dir
+)
