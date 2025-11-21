@@ -1,0 +1,57 @@
+# File: .github/workflows/preprocess.yml
+name: Auto Preprocessing Dataset
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.7'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Jalankan preprocessing otomatis
+        run: |
+          python preprocessing/automate_HilmiDatuAllam.py \
+            --input diabetes_prediction_dataset_raw.csv \
+            --output-dir preprocessing/diabetes_prediction_dataset_preprocessing
+
+      - name: Tampilkan isi folder hasil
+        run: |
+          echo "Isi folder preprocessing/diabetes_prediction_dataset_preprocessing:"
+          ls -la preprocessing/diabetes_prediction_dataset_preprocessing/ || echo "Folder belum ada"
+
+      - name: Upload preprocessed dataset sebagai Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: diabetes-preprocessed-dataset
+          path: preprocessing/diabetes_prediction_dataset_preprocessing/
+          retention-days: 30
+
+      - name: Commit & Push hasil preprocessing
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          
+          git add preprocessing/diabetes_prediction_dataset_preprocessing/ || echo "Tidak ada file"
+          git diff --quiet && git diff --staged --quiet && echo "Tidak ada perubahan" || (
+            git commit -m "Auto preprocessing: $(date '+%Y-%m-%d %H:%M')"
+            git push origin main
+            echo "Berhasil push ke repo!"
+          )
