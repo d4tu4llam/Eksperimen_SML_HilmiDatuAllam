@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import argparse
+import numpy as np
 
 def preprocess_data(data_path, target_column, output_dir):
     # Menentukan fitur numerik dan kategoris
