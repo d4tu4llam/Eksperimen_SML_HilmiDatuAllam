@@ -26,6 +26,7 @@ def preprocess_data(data_path, target_column, output_dir):
          - train_processed.csv
          - test_processed.csv
          - preprocessor.joblib (untuk inference nanti)
+    10. Buat Folder dan Simpan hasil
 
     """
     # 1. Load data dari file CSV
@@ -89,6 +90,7 @@ def preprocess_data(data_path, target_column, output_dir):
             ('num', numeric_transformer, numeric_features),
             ( 'cat',categorical_transformer, categorical_features)
         ],
+        verbose_feature_names_out=False,
         remainder='passthrough'
     )
 
