@@ -24,7 +24,7 @@ Struktur Folder:
  ┗ 📜requirements.txt
 ```
 Tahapan Preprocessing:
-Scrips pada fioe automate_Satriana.py akan secara otomatis menjalankan tahapan-tahapan:
+Scrips pada file automate_HilmiDatuAllam.py akan secara otomatis menjalankan tahapan-tahapan:
 Tahapan preprocessing : 
 1. Load file CSV
 2. Hapus duplikat
